@@ -93,6 +93,7 @@ const test_info tests[] = {
     { NO_COMP, "alternating kaddd kN, kN+1, kN+1 and por mmN, mmN+1" }, // 41
     { NO_COMP, "kaddb k1, k2, k3" }, // 42
     { NO_COMP, "kaddd kN, kN+1, kN+1" }, // 43
+    {       0, "prefetcht0"}, //44
 };
 
 const int test_count = sizeof(tests) / sizeof(tests[0]);
@@ -215,6 +216,7 @@ int add_filler(unsigned char* ibuf, int instr, int i, int k)
         case 42: ADD_BYTE(0xc5); ADD_BYTE(0xed); ADD_BYTE(0x4a); ADD_BYTE(0xcb); break;  // kaddb k1, k2, k3
         case 43: ADD_BYTE(0xc4); ADD_BYTE(0xe1); ADD_BYTE(0xfd & ~(((i+1)&7)<<3)); ADD_BYTE(0x4a);
                  ADD_BYTE(0xc0 | (i&7)<<3 | ((i+1)&7)); break;  // kaddd kN, kN+1, kN+1
+        case 44: ADD_WORD(0x180f);ADD_WORD(0x240c); break;
 
     }
 
